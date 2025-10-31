@@ -39,16 +39,9 @@ end
 Clicked:FireServer("Special_23", true)
 task.wait(3)
 
--- Step 6: Fire Repeatable_7 and wait 19 seconds
-Clicked:FireServer("Repeatable_7", true)
-task.wait(19)
+-- Step 6: Fire Special_9
+Clicked:FireServer("Special_9", true)
+task.wait(2) -- 2-second delay before Special_22
 
--- Step 7: Fire Special_13
-Clicked:FireServer("Special_13", true)
-
--- Step 8: Loop Repeatable_5 and Repeatable_6 six times with 2-second delay
-for i = 1, 6 do
-    Clicked:FireServer("Repeatable_5", true)
-    Clicked:FireServer("Repeatable_6", true)
-    task.wait(2)
-end
+-- Step 7: Fire Special_22
+Clicked:FireServer("Special_22", true)
