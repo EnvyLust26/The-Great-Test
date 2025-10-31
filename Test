@@ -5,50 +5,59 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 -- Remote
 local Clicked = ReplicatedStorage.Remotes.Clicked -- RemoteEvent
 
+-- Optional helper function for cleaner code
+local function fire(remoteName, waitTime)
+    Clicked:FireServer(remoteName, true)
+    if waitTime then
+        task.wait(waitTime)
+    end
+end
+
 -- Step 1: Fire Special_1 once
-Clicked:FireServer("Special_1", true)
+fire("Special_1", 2)
 
 -- Step 2: Repeat Repeatable_1 and Repeatable_2 eight times
 for i = 1, 8 do
-    Clicked:FireServer("Repeatable_1", true)
-    Clicked:FireServer("Repeatable_2", true)
-    task.wait(2)
+    fire("Repeatable_1")
+    fire("Repeatable_2", 2)
 end
 
 -- Step 3: Fire specials and extra repeatables
-task.wait(2)
-Clicked:FireServer("Special_12", true)
-task.wait(2)
-Clicked:FireServer("Special_8", true)
-task.wait(2)
-Clicked:FireServer("Repeatable_3", true)
-task.wait(2)
-Clicked:FireServer("Repeatable_4", true)
-task.wait(1)
-Clicked:FireServer("Repeatable_7", true)
-task.wait(13)
+fire("Special_12", 2)
+fire("Special_8", 2)
+fire("Repeatable_3", 2)
+fire("Repeatable_4", 1)
+fire("Repeatable_7", 13)
 
 -- Step 4: After 13s delay, loop Repeatable_3 and Repeatable_4 five times
 for i = 1, 5 do
-    Clicked:FireServer("Repeatable_3", true)
-    Clicked:FireServer("Repeatable_4", true)
-    task.wait(2)
+    fire("Repeatable_3")
+    fire("Repeatable_4", 2)
 end
 
 -- Step 5: Fire Special_23 and wait 3 seconds
-Clicked:FireServer("Special_23", true)
-task.wait(3)
+fire("Special_23", 3)
 
 -- Step 6: Fire Repeatable_7 and wait 19 seconds
-Clicked:FireServer("Repeatable_7", true)
-task.wait(19)
+fire("Repeatable_7", 19)
 
 -- Step 7: Fire Special_13
-Clicked:FireServer("Special_13", true)
+fire("Special_13")
 
 -- Step 8: Loop Repeatable_5 and Repeatable_6 six times with 2-second delay
 for i = 1, 6 do
-    Clicked:FireServer("Repeatable_5", true)
-    Clicked:FireServer("Repeatable_6", true)
-    task.wait(2)
+    fire("Repeatable_5")
+    fire("Repeatable_6", 2)
 end
+
+-- Step 9: Fire Repeatable_7 once after looping Repeatable_5 & 6, then wait 19 seconds
+fire("Repeatable_7", 19)
+
+-- Step 10: Fire Special_9
+fire("Special_9", 2) -- delay 2 detik setelah Special_9
+
+-- Step 11: Fire Special_22
+fire("Special_22", 2) -- delay 2 detik setelah Special_22
+
+-- Step 12: Fire Special_25
+fire("Special_25", 3) -- delay 3 detik setelah Special_25
