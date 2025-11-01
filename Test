@@ -127,12 +127,24 @@ Clicked:FireServer(
 Clicked:FireServer("Cultivate", false)
 
 -- ===============================
--- Step 29: Breakthrough (loop until stopped)
+-- Step 29: Breakthrough (loop for 264 seconds)
 -- ===============================
-local breakthroughLooping = true -- set false to stop loop
+local breakthroughLoops = 528 -- 264s ÷ 0.5s per loop
 spawn(function()
-    while breakthroughLooping do
+    for i = 1, breakthroughLoops do
         Clicked:FireServer("Breakthrough", false)
-        task.wait(0.5) -- adjust speed if needed
+        task.wait(0.5)
     end
+
+    -- ===============================
+    -- Step 30: Death signal, wait 14 seconds
+    -- ===============================
+    local Death = ReplicatedStorage.Remotes.Death -- RemoteEvent
+    firesignal(Death.OnClientEvent)
+    task.wait(14)
+
+    -- ===============================
+    -- Step 31: Fire Death to server
+    -- ===============================
+    Death:FireServer()
 end)
