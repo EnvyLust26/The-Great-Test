@@ -110,8 +110,8 @@ fire("Special_3", 2)
 -- Step 25: Fire Special_5, wait 2 seconds
 fire("Special_5", 2)
 
--- Step 26: Fire Special_7, wait 2 seconds
-fire("Special_7", 2)
+-- Step 26: Fire Special_7, wait 4 seconds
+fire("Special_7", 4)
 
 -- Step 27: Equip Cloud Manual
 Clicked:FireServer(
