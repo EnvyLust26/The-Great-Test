@@ -74,26 +74,26 @@ fire("Special_43", 2)
 -- Step 16: Fire Special_50
 fire("Special_50", 5)
 
--- Step 17: Loop Repeatable_8 and Repeatable_9 four times with 3-second delay
+-- Step 17: Loop Repeatable_8 and Repeatable_9 four times with 2-second delay
 for i = 1, 4 do
     fire("Repeatable_8")
-    fire("Repeatable_9", 3)
+    fire("Repeatable_9", 2)
 end
 
 -- Step 18: Fire Repeatable_7 once after loop Repeatable_8 & 9, then wait 19 seconds
 fire("Repeatable_7", 19)
 
--- Step 19: Loop Repeatable_8 and Repeatable_9 five times with 3-second delay
+-- Step 19: Loop Repeatable_8 and Repeatable_9 five times with 2-second delay
 for i = 1, 5 do
     fire("Repeatable_8")
-    fire("Repeatable_9", 3)
+    fire("Repeatable_9", 2)
 end
 
 -- Step 20: Copy Step 18 → Fire Repeatable_7 once, wait 19 seconds
 fire("Repeatable_7", 19)
 
--- Step 21: Copy Step 19 → Loop Repeatable_8 and Repeatable_9 five times, 3-second delay
+-- Step 21: Copy Step 19 → Loop Repeatable_8 and Repeatable_9 five times, 2-second delay
 for i = 1, 5 do
     fire("Repeatable_8")
-    fire("Repeatable_9", 3)
+    fire("Repeatable_9", 2)
 end
