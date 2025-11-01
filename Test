@@ -97,3 +97,18 @@ for i = 1, 5 do
     fire("Repeatable_8")
     fire("Repeatable_9", 2)
 end
+
+-- Step 22: Fire Special_2, wait 2 seconds
+fire("Special_2", 2)
+
+-- Step 23: Fire Special_6, wait 2 seconds
+fire("Special_6", 2)
+
+-- Step 24: Fire Special_3, wait 2 seconds
+fire("Special_3", 2)
+
+-- Step 25: Fire Special_5, wait 2 seconds
+fire("Special_5", 2)
+
+-- Step 26: Fire Special_7, wait 2 seconds
+fire("Special_7", 2)
