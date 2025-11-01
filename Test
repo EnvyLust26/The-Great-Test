@@ -116,7 +116,7 @@ fire("Special_7", 2)
 -- Step 27: Equip Cloud Manual
 Clicked:FireServer(
     "Equip",
-    true,
+    false,
     "Cloud Manual",
     "Manual"
 )
