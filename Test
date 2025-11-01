@@ -1,6 +1,10 @@
 -- Generated with Sigma Spy Github: https://github.com/depthso/Sigma-Spy
 -- Services
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local Players = game:GetService("Players")
+
+local player = Players.LocalPlayer
+local playerGui = player:WaitForChild("PlayerGui")
 
 -- Remote
 local Clicked = ReplicatedStorage.Remotes.Clicked -- RemoteEvent
@@ -13,110 +17,125 @@ local function fire(remoteName, waitTime)
     end
 end
 
--- Step 1: Fire Special_1 once
+-- Step 1–27 (same as before)
 fire("Special_1", 2)
-
--- Step 2: Repeat Repeatable_1 and Repeatable_2 eight times
 for i = 1, 8 do
     fire("Repeatable_1")
     fire("Repeatable_2", 2)
 end
-
--- Step 3: Fire specials and extra repeatables
 fire("Special_12", 2)
 fire("Special_8", 2)
 fire("Repeatable_3", 2)
 fire("Repeatable_4", 1)
 fire("Repeatable_7", 13)
-
--- Step 4: After 13s delay, loop Repeatable_3 and Repeatable_4 five times
 for i = 1, 5 do
     fire("Repeatable_3")
     fire("Repeatable_4", 2)
 end
-
--- Step 5: Fire Special_23 and wait 3 seconds
 fire("Special_23", 3)
-
--- Step 6: Fire Repeatable_7 and wait 19 seconds
 fire("Repeatable_7", 19)
-
--- Step 7: Fire Special_13
 fire("Special_13")
-
--- Step 8: Loop Repeatable_5 and Repeatable_6 six times with 2-second delay
 for i = 1, 6 do
     fire("Repeatable_5")
     fire("Repeatable_6", 2)
 end
-
--- Step 9: Fire Repeatable_7 once after looping Repeatable_5 & 6, then wait 19 seconds
 fire("Repeatable_7", 19)
-
--- Step 10: Fire Special_9
 fire("Special_9", 2)
-
--- Step 11: Fire Special_22
 fire("Special_22", 2)
-
--- Step 12: Fire Special_25
 fire("Special_25", 3)
-
--- Step 13: Fire Special_40
 fire("Special_40", 2)
-
--- Step 14: Fire Special_41
 fire("Special_41", 2)
-
--- Step 15: Fire Special_43
 fire("Special_43", 2)
-
--- Step 16: Fire Special_50
 fire("Special_50", 5)
-
--- Step 17: Loop Repeatable_8 and Repeatable_9 four times with 2-second delay
 for i = 1, 4 do
     fire("Repeatable_8")
     fire("Repeatable_9", 2)
 end
-
--- Step 18: Fire Repeatable_7 once after loop Repeatable_8 & 9, then wait 19 seconds
 fire("Repeatable_7", 19)
-
--- Step 19: Loop Repeatable_8 and Repeatable_9 five times with 2-second delay
 for i = 1, 5 do
     fire("Repeatable_8")
     fire("Repeatable_9", 2)
 end
-
--- Step 20: Copy Step 18 → Fire Repeatable_7 once, wait 19 seconds
 fire("Repeatable_7", 19)
-
--- Step 21: Copy Step 19 → Loop Repeatable_8 and Repeatable_9 five times, 2-second delay
 for i = 1, 5 do
     fire("Repeatable_8")
     fire("Repeatable_9", 2)
 end
-
--- Step 22: Fire Special_2, wait 2 seconds
 fire("Special_2", 2)
-
--- Step 23: Fire Special_6, wait 2 seconds
 fire("Special_6", 2)
-
--- Step 24: Fire Special_3, wait 2 seconds
 fire("Special_3", 2)
-
--- Step 25: Fire Special_5, wait 2 seconds
 fire("Special_5", 2)
-
--- Step 26: Fire Special_7, wait 4 seconds
 fire("Special_7", 4)
+Clicked:FireServer("Equip", false, "Cloud Manual", "Manual")
 
--- Step 27: Equip Cloud Manual
-Clicked:FireServer(
-    "Equip",
-    false,
-    "Cloud Manual",
-    "Manual"
-)
+-- ===============================
+-- GUI for Cultivate and Breakthrough
+-- ===============================
+
+-- GUI Setup
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "AutoGUI"
+screenGui.Parent = playerGui
+
+-- Frame
+local frame = Instance.new("Frame")
+frame.Size = UDim2.new(0, 200, 0, 200)
+frame.Position = UDim2.new(0, 20, 0, 20)
+frame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+frame.BorderSizePixel = 0
+frame.Parent = screenGui
+
+-- Cultivate Button
+local cultivateBtn = Instance.new("TextButton")
+cultivateBtn.Size = UDim2.new(1, -20, 0, 50)
+cultivateBtn.Position = UDim2.new(0, 10, 0, 10)
+cultivateBtn.Text = "Cultivate"
+cultivateBtn.BackgroundColor3 = Color3.fromRGB(0, 170, 0)
+cultivateBtn.TextColor3 = Color3.new(1,1,1)
+cultivateBtn.Parent = frame
+
+-- Breakthrough Button
+local breakthroughBtn = Instance.new("TextButton")
+breakthroughBtn.Size = UDim2.new(1, -20, 0, 50)
+breakthroughBtn.Position = UDim2.new(0, 10, 0, 70)
+breakthroughBtn.Text = "Breakthrough (OFF)"
+breakthroughBtn.BackgroundColor3 = Color3.fromRGB(170, 0, 0)
+breakthroughBtn.TextColor3 = Color3.new(1,1,1)
+breakthroughBtn.Parent = frame
+
+-- Close GUI Button
+local closeBtn = Instance.new("TextButton")
+closeBtn.Size = UDim2.new(1, -20, 0, 50)
+closeBtn.Position = UDim2.new(0, 10, 0, 130)
+closeBtn.Text = "Close GUI"
+closeBtn.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
+closeBtn.TextColor3 = Color3.new(1,1,1)
+closeBtn.Parent = frame
+
+-- State for Breakthrough loop
+local breakthroughLooping = false
+
+-- Cultivate action (fires once)
+cultivateBtn.MouseButton1Click:Connect(function()
+    Clicked:FireServer("Cultivate", false)
+end)
+
+-- Breakthrough toggle (loop until stopped)
+breakthroughBtn.MouseButton1Click:Connect(function()
+    breakthroughLooping = not breakthroughLooping
+    breakthroughBtn.Text = breakthroughLooping and "Breakthrough (ON)" or "Breakthrough (OFF)"
+    
+    if breakthroughLooping then
+        spawn(function()
+            while breakthroughLooping do
+                Clicked:FireServer("Breakthrough", false)
+                task.wait(0.5) -- adjust loop speed if needed
+            end
+        end)
+    end
+end)
+
+-- Close GUI functionality
+closeBtn.MouseButton1Click:Connect(function()
+    screenGui.Enabled = false
+end)
